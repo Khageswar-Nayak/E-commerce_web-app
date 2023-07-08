@@ -1,0 +1,32 @@
+.cart-item {
+  display: flex;
+}
+
+.item {
+  font-family: math;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid;
+  margin-left: 2rem;
+}
+
+.other-item {
+  font-family: math;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid;
+  margin-left: 6rem;
+}
+
+.heading {
+  text-align: end;
+  font-family: math;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-right: 3rem;
+}
+
+.heading span {
+  font-weight: normal;
+  font-size: 20px;
+}
