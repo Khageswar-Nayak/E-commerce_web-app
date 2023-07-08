@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Badge, Button, Container, Navbar } from "react-bootstrap";
+import CartContext from "../Store/Cart-context";
 
 const Navbaar = (props) => {
+  const cartCtx = useContext(CartContext);
+  let quantity = 0;
+  cartCtx.items.forEach((item) => {
+    quantity = quantity + item.quantity;
+  });
   return (
     <div>
       <Navbar
@@ -26,7 +32,7 @@ const Navbaar = (props) => {
           </Navbar.Brand>
         </Container>
         <Button variant="primary" onClick={() => props.handleShow()}>
-          Cart <Badge bg="secondary">0</Badge>
+          Cart <Badge bg="secondary">{quantity}</Badge>
         </Button>
       </Navbar>
     </div>

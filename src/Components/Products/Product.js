@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import "./Product.css";
+import CartContext from "../Store/Cart-context";
 
 const Product = (props) => {
+  const cartCtx = useContext(CartContext);
+  const addToCartHandler = (product) => {
+    // event.preventDefault();
+    console.log(product.title);
+
+    cartCtx.addItem({
+      ...product,
+      quantity: 1,
+      id: product.title,
+      // price: props.item.price,
+    });
+  };
   return (
     <Container>
       <Stack style={{ textAlign: "center" }}>
@@ -38,7 +51,12 @@ const Product = (props) => {
                 <Card.Text style={{ fontSize: "18px" }}>
                   ${product.price}
                 </Card.Text>
-                <Button variant="info" size="sm">
+                <Button
+                  variant="info"
+                  size="sm"
+                  style={{ color: "white", fontWeight: "bold" }}
+                  onClick={() => addToCartHandler(product)}
+                >
                   ADD TO CART
                 </Button>
               </Card.Body>

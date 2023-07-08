@@ -1,29 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./CartItem.module.css";
 import { Button, Card } from "react-bootstrap";
+import CartContext from "../Store/Cart-context";
 
-const cartElements = [
-  {
-    title: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-    quantity: 2,
-  },
-  {
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-];
+const CartItem = (props) => {
+  const cartCtx = useContext(CartContext);
 
-const CartItem = () => {
   return (
     <>
       <div className={classes["cart-item"]}>
@@ -31,7 +13,7 @@ const CartItem = () => {
         <h3 className={classes["other-item"]}>PRICE</h3>
         <h3 className={classes["other-item"]}>QUANTITY</h3>
       </div>
-      {cartElements.map((item, index) => (
+      {cartCtx.items.map((item, index) => (
         <Card
           key={index}
           style={{ borderColor: "white", borderBottom: "1px solid black" }}
@@ -49,7 +31,7 @@ const CartItem = () => {
               {item.price}
             </Card.Text>
             <input
-              value={item.quantity}
+              defaultValue={item.quantity}
               style={{
                 width: "2rem",
                 textAlign: "center",
@@ -69,7 +51,7 @@ const CartItem = () => {
       ))}
 
       <h2 className={classes.heading}>
-        Total <span> $0</span>
+        Total <span> {cartCtx.totalAmount}</span>
       </h2>
       <Button
         variant="info"

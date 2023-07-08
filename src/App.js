@@ -3,6 +3,7 @@ import Navbaar from "./Components/Navbar/Navbar";
 import Header from "./Components/Navbar/Header";
 import Product from "./Components/Products/Product";
 import Cart from "./Components/Cart/Cart";
+import CartProvider from "./Components/Store/CartProvider";
 
 const productsArr = [
   {
@@ -33,12 +34,12 @@ function App() {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
+    <CartProvider>
       <Navbaar handleShow={handleShow} />
       <Cart handleClose={handleClose} show={show} />
       <Header />
       <Product products={productsArr} />
-    </div>
+    </CartProvider>
   );
 }
 
