@@ -51,7 +51,7 @@ const CartItem = (props) => {
       ))}
 
       <h2 className={classes.heading}>
-        Total <span> {cartCtx.totalAmount}</span>
+        Total <span> ${cartCtx.totalAmount}</span>
       </h2>
       <Button
         variant="info"

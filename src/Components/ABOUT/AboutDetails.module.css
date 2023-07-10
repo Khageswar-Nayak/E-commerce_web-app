@@ -1,0 +1,23 @@
+.head {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  font-family: emoji;
+  font-size: xx-large;
+}
+
+.img {
+  float: left;
+  margin: 20px 50px;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.paragraph {
+  /* flex: 1; */
+  font-size: 17px;
+  margin: 20px;
+  color: #777;
+}

@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const offcanvasStyles = {
-    top: "57px", // Adjust the top value as per your preference
+    top: "53px", // Adjust the top value as per your preference
     maxHeight: "calc(100% - 20px)", // Adjust the maxHeight value to fit the desired height
     color: "white",
     width: "30rem",
