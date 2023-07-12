@@ -55,9 +55,21 @@ const MainNavigation = (props) => {
               STORE
             </NavLink>
           </div>
-
+          <div style={{ marginRight: "50px" }}>
+            <NavLink
+              to="/about"
+              style={{
+                color: "white",
+                fontFamily: "fangsong",
+                textDecoration: "none",
+              }}
+              onClick={buttonVisibleHandler}
+            >
+              ABOUT
+            </NavLink>
+          </div>
           <NavLink
-            to="/about"
+            to="/contact"
             style={{
               color: "white",
               fontFamily: "fangsong",
@@ -65,7 +77,7 @@ const MainNavigation = (props) => {
             }}
             onClick={buttonVisibleHandler}
           >
-            ABOUT
+            CONTACT US
           </NavLink>
         </Container>
         {buttonVisible && (

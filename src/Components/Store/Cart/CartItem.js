@@ -6,6 +6,14 @@ import CartContext from "../Store/Cart-context";
 const CartItem = (props) => {
   const cartCtx = useContext(CartContext);
 
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
+
+  const orderHandler = () => {
+    cartCtx.clearCart();
+  };
+
   return (
     <>
       <div className={classes["cart-item"]}>
@@ -30,19 +38,21 @@ const CartItem = (props) => {
             <Card.Text style={{ marginLeft: "1rem", marginBottom: "7px" }}>
               {item.price}
             </Card.Text>
-            <input
-              defaultValue={item.quantity}
+            <p
               style={{
                 width: "2rem",
                 textAlign: "center",
                 marginLeft: "5rem",
                 border: "2px solid #12bca2",
               }}
-            />
+            >
+              {item.quantity}
+            </p>
             <Button
               variant="outline-danger"
               size="sm"
               style={{ marginLeft: "2rem" }}
+              onClick={() => cartItemRemoveHandler(item.id)}
             >
               REMOVE
             </Button>
@@ -56,6 +66,9 @@ const CartItem = (props) => {
       <Button
         variant="info"
         style={{ marginLeft: "10rem", color: "white", fontWeight: "bold" }}
+        onClick={() => {
+          orderHandler();
+        }}
       >
         PURCHASE
       </Button>
