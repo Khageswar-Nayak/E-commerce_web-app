@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import "./Product.css";
 import CartContext from "../Store/Cart-context";
+import { Link, Outlet } from "react-router-dom";
 
 const Product = (props) => {
   const cartCtx = useContext(CartContext);
@@ -43,11 +44,13 @@ const Product = (props) => {
               <Card.Title style={{ textAlign: "center", marginBottom: "20px" }}>
                 {product.title}
               </Card.Title>
-              <Card.Img
-                className="product-image"
-                variant="top"
-                src={product.imageUrl}
-              />
+              <Link to={`/store/${product.title}`}>
+                <Card.Img
+                  className="product-image"
+                  variant="top"
+                  src={product.imageUrl}
+                />
+              </Link>
               <Card.Body className="d-flex justify-content-between">
                 <Card.Text style={{ fontSize: "18px" }}>
                   ${product.price}

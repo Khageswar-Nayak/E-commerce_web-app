@@ -5,8 +5,9 @@ import Product from "../STORE/Products/Product";
 import Cart from "../STORE/Cart/Cart";
 import CartProvider from "./Store/CartProvider";
 import MainNavigation from "../MainNavigation/MainNavigation";
+import { Outlet } from "react-router-dom";
 
-const productsArr = [
+export const productsArr = [
   {
     title: "Colors",
     price: 100,
@@ -40,6 +41,7 @@ const Store = () => {
       <Cart handleClose={handleClose} show={show} />
       <Header />
       <Product products={productsArr} />
+      <Outlet />
     </CartProvider>
   );
 };
