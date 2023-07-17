@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../MainNavigation/Header";
 import { productsArr } from "../Store";
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import classes from "./ProductDetails.module.css";
 
 const ProductDetails = (props) => {
@@ -27,22 +27,38 @@ const ProductDetails = (props) => {
           <Col>
             <Row>
               <Col>
-                <img src={ProductDetails.imageUrl} className={classes.image} />
+                <img
+                  src={ProductDetails.imageUrl}
+                  alt="color"
+                  className={classes.image}
+                />
               </Col>
             </Row>
             <Row>
               <Col>
-                <img src={ProductDetails.imageUrl} className={classes.image} />
+                <img
+                  src={ProductDetails.imageUrl}
+                  alt="color"
+                  className={classes.image}
+                />
               </Col>
             </Row>
             <Row>
               <Col>
-                <img src={ProductDetails.imageUrl} className={classes.image} />
+                <img
+                  src={ProductDetails.imageUrl}
+                  alt="color"
+                  className={classes.image}
+                />
               </Col>
             </Row>
           </Col>
           <Col>
-            <img src={ProductDetails.imageUrl} className={classes.mainImage} />
+            <img
+              src={ProductDetails.imageUrl}
+              alt="color"
+              className={classes.mainImage}
+            />
           </Col>
           <Col xs={7}>
             <div className={classes.details}>
@@ -64,23 +80,6 @@ const ProductDetails = (props) => {
           </Col>
         </Row>
       </Container>
-      {/* <Stack direction="vertical" gap={1} className={classes.stack1}>
-        <div>
-          <Container>
-            <img src={ProductDetails.imageUrl} className={classes.image} />
-          </Container>
-          <Container>
-            <img src={ProductDetails.imageUrl} className={classes.image} />
-          </Container>
-          <Container>
-            <img src={ProductDetails.imageUrl} className={classes.image} />
-          </Container>
-        </div>
-      </Stack>
-
-      <Stack direction="vertical" className={classes.stack2}>
-        <img src={ProductDetails.imageUrl} className={classes.image} />
-      </Stack> */}
     </>
   ); // Replace this with your actual component content
 };

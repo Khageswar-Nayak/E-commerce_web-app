@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Badge, Button, Container, Navbar } from "react-bootstrap";
 import CartContext from "../STORE/Store/Cart-context";
+import AuthContext from "../../auth-context";
 
 const MainNavigation = (props) => {
   const location = useLocation();
@@ -9,16 +10,23 @@ const MainNavigation = (props) => {
     location.pathname === "/store"
   );
   // const [buttonVisible, setButtonVisible] = useState(true);
+  const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const buttonVisibleHandler = () => {
     setButtonVisible(false);
   };
 
-  const cartCtx = useContext(CartContext);
   let quantity = 0;
   cartCtx.items.forEach((item) => {
     quantity = quantity + item.quantity;
   });
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate("/");
+  };
   return (
     <div>
       <Navbar
@@ -68,8 +76,21 @@ const MainNavigation = (props) => {
               ABOUT
             </NavLink>
           </div>
+          <div style={{ marginRight: "50px" }}>
+            <NavLink
+              to="/contact"
+              style={{
+                color: "white",
+                fontFamily: "fangsong",
+                textDecoration: "none",
+              }}
+              onClick={buttonVisibleHandler}
+            >
+              CONTACT US
+            </NavLink>
+          </div>
           <NavLink
-            to="/contact"
+            to="/login"
             style={{
               color: "white",
               fontFamily: "fangsong",
@@ -77,8 +98,15 @@ const MainNavigation = (props) => {
             }}
             onClick={buttonVisibleHandler}
           >
-            CONTACT US
+            LOGIN
           </NavLink>
+          <Button
+            variant="black"
+            style={{ fontFamily: "fangsong", color: "white" }}
+            onClick={logoutHandler}
+          >
+            LOGOUT
+          </Button>
         </Container>
         {buttonVisible && (
           <Button variant="primary" onClick={() => props.handleShow()}>
