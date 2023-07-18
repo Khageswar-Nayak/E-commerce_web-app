@@ -11,7 +11,7 @@ const Login = (props) => {
   const passwordInputRef = useRef("");
   const authCtx = useContext(AuthContext);
 
-  console.log(authCtx.isLoggedIn);
+  // console.log(authCtx.isLoggedIn);
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
@@ -30,39 +30,36 @@ const Login = (props) => {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAq9ScOSJjJOFyOu6K4bNi-y3NGUgPm6KA";
     }
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            // console.log(data);
-            throw new Error(errorMessage);
-          });
-        }
-      })
-      .then((data) => {
-        // console.log(data.idToken);
-        authCtx.login(data.idToken);
-        navigate("/store");
-      })
-      .catch((err) => {
-        alert(err.message);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+
+      if (!response.ok) {
+        const data = await response.json();
+        let errorMessage = "Authentication failed!";
+        if (data && data.error && data.error.message) {
+          errorMessage = data.error.message;
+        }
+        // console.log(data);
+        throw new Error(errorMessage);
+      }
+      const data = await response.json();
+      console.log(data);
+      authCtx.login(data);
+      navigate("/store");
+    } catch (err) {
+      alert(err.message);
+    }
   };
   return (
     <div className={classes["form-container"]}>
@@ -73,7 +70,7 @@ const Login = (props) => {
         <label>Email Id:</label>
         <input type="email" ref={emailInputRef} />
         <label>Password:</label>
-        <input type="number" ref={passwordInputRef} />
+        <input type="password" ref={passwordInputRef} />
         <button className={classes["form-button"]}>Submit</button>
         <br />
         <button

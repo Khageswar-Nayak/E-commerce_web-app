@@ -4,10 +4,12 @@ import { Button, Card } from "react-bootstrap";
 import CartContext from "../Store/Cart-context";
 
 const CartItem = (props) => {
+  // console.log(props.cartItem);
   const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
+    // props.onHide();
   };
 
   const orderHandler = () => {
@@ -21,7 +23,7 @@ const CartItem = (props) => {
         <h3 className={classes["other-item"]}>PRICE</h3>
         <h3 className={classes["other-item"]}>QUANTITY</h3>
       </div>
-      {cartCtx.items.map((item, index) => (
+      {props.cartItem.map((item, index) => (
         <Card
           key={index}
           style={{ borderColor: "white", borderBottom: "1px solid black" }}
@@ -52,7 +54,7 @@ const CartItem = (props) => {
               variant="outline-danger"
               size="sm"
               style={{ marginLeft: "2rem" }}
-              onClick={() => cartItemRemoveHandler(item.id)}
+              onClick={() => cartItemRemoveHandler(item)}
             >
               REMOVE
             </Button>

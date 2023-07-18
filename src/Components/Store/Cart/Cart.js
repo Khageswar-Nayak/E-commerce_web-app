@@ -33,7 +33,7 @@ const Cart = (props) => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body style={{ color: "black" }}>
-          <CartItem />
+          <CartItem onHide={props.handleClose} cartItem={props.cartItem} />
         </Offcanvas.Body>
       </Offcanvas>
     </>

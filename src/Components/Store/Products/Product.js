@@ -6,9 +6,10 @@ import { Link, Outlet } from "react-router-dom";
 
 const Product = (props) => {
   const cartCtx = useContext(CartContext);
+
   const addToCartHandler = (product) => {
     // event.preventDefault();
-    console.log(product.title);
+    // console.log(product.title);
 
     cartCtx.addItem({
       ...product,

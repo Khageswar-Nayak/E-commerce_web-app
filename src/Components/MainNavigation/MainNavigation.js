@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Badge, Button, Container, Navbar } from "react-bootstrap";
 import CartContext from "../STORE/Store/Cart-context";
@@ -18,15 +18,13 @@ const MainNavigation = (props) => {
     setButtonVisible(false);
   };
 
-  let quantity = 0;
-  cartCtx.items.forEach((item) => {
-    quantity = quantity + item.quantity;
-  });
-
   const logoutHandler = () => {
     authCtx.logout();
     navigate("/");
+    setButtonVisible(false);
   };
+  const userEmail = authCtx.email;
+
   return (
     <div>
       <Navbar
@@ -110,7 +108,7 @@ const MainNavigation = (props) => {
         </Container>
         {buttonVisible && (
           <Button variant="primary" onClick={() => props.handleShow()}>
-            Cart <Badge bg="secondary">{quantity}</Badge>
+            Cart <Badge bg="secondary">{cartCtx.quantity}</Badge>
           </Button>
         )}
       </Navbar>
