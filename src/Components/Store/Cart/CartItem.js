@@ -23,7 +23,7 @@ const CartItem = (props) => {
         <h3 className={classes["other-item"]}>PRICE</h3>
         <h3 className={classes["other-item"]}>QUANTITY</h3>
       </div>
-      {props.cartItem.map((item, index) => (
+      {cartCtx.items.map((item, index) => (
         <Card
           key={index}
           style={{ borderColor: "white", borderBottom: "1px solid black" }}

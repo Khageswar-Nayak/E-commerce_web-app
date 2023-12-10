@@ -25,10 +25,10 @@ const Login = (props) => {
     let url;
     if (isLogin) {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAq9ScOSJjJOFyOu6K4bNi-y3NGUgPm6KA";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB4f_UcO9G-Dl-gWaiU0WSpfLZBQhB9tGg";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAq9ScOSJjJOFyOu6K4bNi-y3NGUgPm6KA";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB4f_UcO9G-Dl-gWaiU0WSpfLZBQhB9tGg";
     }
 
     try {
@@ -43,7 +43,7 @@ const Login = (props) => {
           "Content-Type": "application/json",
         },
       });
-
+      console.log(response);
       if (!response.ok) {
         const data = await response.json();
         let errorMessage = "Authentication failed!";

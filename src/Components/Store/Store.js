@@ -34,33 +34,33 @@ export const productsArr = [
 ];
 const Store = () => {
   const [show, setShow] = useState(false);
-  const [cartItem, setCartItem] = useState([]);
+  // const [cartItem, setCartItem] = useState([]);
   const authCtx = useContext(AuthContext);
   const cartCtx = useContext(CartContext);
   const modifiedEmail = authCtx.email.replace("@", "").replace(".", "");
 
   const handleClose = () => {
     setShow(false);
-    setCartItem([]);
+    // setCartItem([]);
   };
   const handleShow = async () => {
     setShow(true);
-    try {
-      const getProduct = await axios.get(
-        `https://crudcrud.com/api/ea25d168492547bc84f22e11f5ce624d/${modifiedEmail}`
-      );
-      setCartItem((prevItems) => [...prevItems, ...getProduct.data]);
-      cartCtx.totalAmount = getProduct.data.length;
-      // console.log(getProduct);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const getProduct = await axios.get(
+    //     `https://crudcrud.com/api/d5c91e70a04b4017940e97942294c221/${modifiedEmail}`
+    //   );
+    //   // setCartItem((prevItems) => [...prevItems, ...getProduct.data]);
+    //   // cartCtx.totalAmount = getProduct.data.length;
+    //   // console.log(getProduct);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   // console.log(cartItem);
   return (
     <CartProvider>
       <MainNavigation handleShow={handleShow} />
-      <Cart handleClose={handleClose} show={show} cartItem={cartItem} />
+      <Cart handleClose={handleClose} show={show} />
       <Header />
       <Product products={productsArr} />
       <Outlet />

@@ -17,16 +17,15 @@ const CartProvider = (props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://crudcrud.com/api/ea25d168492547bc84f22e11f5ce624d/${ChangesEMail}`
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}`
         );
         // console.log(response.data);
 
-        setItems((prevItem) => [...prevItem, ...response.data]);
+        setItems(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchData();
   }, [ChangesEMail]);
 
@@ -35,10 +34,11 @@ const CartProvider = (props) => {
     let updateQuantity = 0;
 
     items.forEach((item) => {
+      // console.log("hii");
       updateAmount += Number(item.price);
       updateQuantity += Number(item.quantity);
     });
-
+    console.log(updateQuantity, items);
     setTotalAmount(updateAmount);
     setQuantity(updateQuantity);
   }, [items]);
@@ -57,10 +57,10 @@ const CartProvider = (props) => {
         };
 
         const response = await axios.put(
-          `https://crudcrud.com/api/ea25d168492547bc84f22e11f5ce624d/${ChangesEMail}/${existingItem._id}`,
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}/${existingItem._id}`,
           { ...updatedItem, _id: undefined }
         );
-        console.log(response);
+        //  console.log(response);
 
         setItems((prevItems) =>
           prevItems.map((cartItem) =>
@@ -69,7 +69,7 @@ const CartProvider = (props) => {
         );
       } else {
         const postProduct = await axios.post(
-          `https://crudcrud.com/api/ea25d168492547bc84f22e11f5ce624d/${ChangesEMail}`,
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}`,
           item
         );
         setItems((prevItems) => [...prevItems, postProduct.data]);
@@ -88,53 +88,68 @@ const CartProvider = (props) => {
     );
 
     const existingItem = items[existingItemIndex];
+    // console.log(existingItem);
     try {
-      const response = await axios.delete(
-        `https://crudcrud.com/api/56b74cc1aff645888236df7ed7b5602f/${ChangesEMail}/${existingItem._id}`
-      );
-      const updatedItems = items.filter((item) => item.id !== cartItem.id);
+      let updatedItems;
+      let updatedTotalAmount;
+      let updatedQuantity;
+      if (existingItem.quantity === 1) {
+        const response = await axios.delete(
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}/${existingItem._id}`
+        );
+        updatedItems = items.filter((item) => item.id !== cartItem.id);
+      } else {
+        const updatedItem = {
+          ...existingItem,
+          quantity: Number(existingItem.quantity) - 1,
+          price:
+            Number(existingItem.price) -
+            Number(existingItem.price) / Number(existingItem.quantity),
+        };
+        const response = await axios.put(
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}/${existingItem._id}`,
+          { ...updatedItem, _id: undefined }
+        );
+        updatedItems = [...items];
+        updatedItems[existingItemIndex] = updatedItem;
+        updatedTotalAmount =
+          totalAmount -
+          Number(existingItem.price) / Number(existingItem.quantity);
 
-      let updatedAmount =
-        totalAmount - existingItem.price * existingItem.quantity;
-      let updatedQuantity = quantity - existingItem.quantity;
+        updatedQuantity = quantity - Number(existingItem.quantity);
+      }
 
+      setTotalAmount(updatedTotalAmount);
       setItems(updatedItems);
-      setTotalAmount(updatedAmount);
       setQuantity(updatedQuantity);
       console.log(updatedItems);
     } catch (error) {
       console.log(error);
     }
-
-    // let updatedItems;
-    // if (existingItem.quantity === 1) {
-    //   updatedItems = items.filter((item) => item.id !== id);
-    // } else {
-    //   const updatedItem = {
-    //     ...existingItem,
-    //     quantity: existingItem.quantity - 1,
-    //     price: existingItem.price - existingItem.price / existingItem.quantity,
-    //   };
-    //   updatedItems = [...items];
-    //   updatedItems[existingItemIndex] = updatedItem;
-    // }
-    // const updatedTotalAmount = Math.abs(
-    //   totalAmount - existingItem.price / existingItem.quantity
-    // );
-    // setTotalAmount(updatedTotalAmount);
-    // setItems(updatedItems);
   };
   const clearCartHandler = async () => {
     try {
-      const response = await axios.delete(
-        `https://crudcrud.com/api/56b74cc1aff645888236df7ed7b5602f/${ChangesEMail}`
+      // Get the list of objects associated with the ChangesEMail array
+      const { data } = await axios.get(
+        `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}`
       );
-      console.log(response);
+      console.log(data);
+      // Delete each object individually
+      const deleteRequests = data.map((item) =>
+        axios.delete(
+          `https://crudcrud.com/api/f9a7832b0fbf40209fbd35dc555d4641/${ChangesEMail}/${item._id}`
+        )
+      );
+
+      // Perform all delete requests in parallel
+      await Promise.all(deleteRequests);
+
+      // Clear the local state and display a success message
       setItems([]);
       setTotalAmount(0);
       alert("Thanks for Purchase");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -16,7 +16,7 @@ function Contact(props) {
     console.log(obj);
     try {
       const response = await fetch(
-        "https://react-http-b76b2-default-rtdb.firebaseio.com/contact.json",
+        "https://e-commerce-web-app-1a7a8-default-rtdb.firebaseio.com/contact.json",
         {
           method: "POST",
           body: JSON.stringify(obj),
@@ -30,6 +30,9 @@ function Contact(props) {
     } catch (error) {
       console.log(error);
     }
+    nameRef.current.value = "";
+    emailIdRef.current.value = "";
+    phoneNumberRef.current.value = "";
   };
   return (
     <div className={classes["form-container"]}>

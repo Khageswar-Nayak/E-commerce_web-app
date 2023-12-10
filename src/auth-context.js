@@ -26,6 +26,7 @@ export const AuthContextProvider = (props) => {
   }, [isLoggedIn, token]);
 
   const loginHandler = (data) => {
+    console.log("hii");
     setToken(data.idToken);
     setEmail(data.email);
     setIsLoggedIn(true);
